@@ -12,7 +12,7 @@ kernel.json file in `~/.local/share/jupyter/kernels/ir/kernels.json` to
 append `Singularity exec instance` to the R executable.
 
 ## Requirements
-- Singularity 3.x installed on the Jupyterhub server
+- Singularity 3.x installed on the Jupyterhub server (tip: you can install it from [conda-forge](https://anaconda.org/conda-forge/singularity))
 
 ## Usage
 Build the Singularity image and move it to your server/HPC.
