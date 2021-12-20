@@ -16,8 +16,7 @@ append `Singularity exec instance` to the R executable.
 
 ## Usage
 Build the Singularity image and move it to your server/HPC.
-On the server, check the content of `setup.sh`, execute it,
-then open an `ir` notebook from your Jupyterhub server.
+On the server, check the content of `setup.sh`, edit according to your preferences/needs, execute it, then open an `ir` notebook from your Jupyterhub server.
 
 ## Troubleshooting
 If the kernel is unable to start, the first thing to check is the kernel.json
