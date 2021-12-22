@@ -3,6 +3,7 @@
 version="4.1.2-0"
 
 # default params
+imgpath='docker://ghcr.io/bepoli/irkernel-hpc:latest'
 name='ir'
 kernel=0
 
@@ -13,11 +14,11 @@ while getopts ":s:n:b:kh" opt; do
       IRkernel-HPC version $version
 
       Usage:
-      ./irstart -s STR [-n STR] [-b STR] [-kh]
+      ./irstart [-s STR] [-n STR] [-b STR] [-kh]
 
       -h Display this message and exit.
-      -s Path to image (local or remote. If pulling from a docker registry, prepend docker://).
-      -n Name of the Singularity instance and jupyter kernel (Default: ir).
+      -s Path to docker or singularity image, local or remote (default: docker://ghcr.io/bepoli/irkernel-hpc:latest).
+      -n Name of the Singularity instance and jupyter kernel (default: ir).
       -b User-bind path specification, wrapper for Singularity option --bind.
       -k Create a jupyter R kernel using this Singularity instance.
       "
@@ -55,9 +56,9 @@ fi
 singularity instance start $bindpaths $imgpath $name
 
 if [ "$kernel" -eq 1 ]; then
-singularity exec instance://$name /usr/lib/R/bin/R --vanilla <<code
-if(!'IRkernel' %in% installed.packages()) install.packages('IRkernel')
-IRkernel::installspec(name = "$name", displayname = "$name")
-code
+  singularity exec instance://$name /usr/lib/R/bin/R --vanilla <<code
+    if(!'IRkernel' %in% installed.packages()) install.packages('IRkernel')
+    IRkernel::installspec(name = "$name", displayname = "$name")
+  code
 sed -i "s|\[\"/usr/lib/R/bin/R\"|[\"$(which singularity)\", \"exec\", \"instance://${name}\", \"/usr/lib/R/bin/R\"|" $HOME/.local/share/jupyter/kernels/$name/kernel.json
 fi
