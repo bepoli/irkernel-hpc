@@ -14,7 +14,7 @@ Designed to run on a HPC/server without admin privileges.
 ```
 This command will:
 - create a singularity instance named **ir**
-- install the R package IRkernel if not already installed) in your default user library (`~/R/`)
+- install the R package IRkernel (if not already installed) in your default user library (`~/R/`)
 - install the R kernel for the current user (by default, in `~/.local/share/jupyter/kernels/ir/`)
 - edit the `kernel.json` file in order to prepend `singularity exec instance://ir` to the R executable
 table.
