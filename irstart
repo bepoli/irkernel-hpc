@@ -56,9 +56,14 @@ fi
 singularity instance start $bindpaths $imgpath $name
 
 if [ "$kernel" -eq 1 ]; then
-  singularity exec instance://$name /usr/lib/R/bin/R --vanilla <<code
-    if(!'IRkernel' %in% installed.packages()) install.packages('IRkernel')
-    IRkernel::installspec(name = "$name", displayname = "$name")
-  code
-sed -i "s|\[\"/usr/lib/R/bin/R\"|[\"$(which singularity)\", \"exec\", \"instance://${name}\", \"/usr/lib/R/bin/R\"|" $HOME/.local/share/jupyter/kernels/$name/kernel.json
+  singularity exec instance://$name /usr/lib/R/bin/R --vanilla --slave -e \
+    "if(!'IRkernel' %in% installed.packages()) {
+       dir.create(Sys.getenv('R_LIBS_USER'),recursive=TRUE,showWarnings=FALSE);
+       install.packages('IRkernel',
+                        lib=Sys.getenv('R_LIBS_USER'),
+                        repos='https://cloud.r-project.org/');
+     };
+     IRkernel::installspec(name='$name',displayname='$name')"
+sed -i "s|\[\"/usr/lib/R/bin/R\"|[\"$(which singularity)\", \"exec\", \"instance://${name}\", \"/usr/lib/R/bin/R\"|" \
+  $HOME/.local/share/jupyter/kernels/$name/kernel.json
 fi
