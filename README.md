@@ -10,6 +10,8 @@ Designed to run on a HPC/server without admin privileges.
 
 ### Quick start
 ```bash
+git clone https://github.com/bepoli/irkernel-hpc
+cd irkernel-hpc
 ./irstart -k
 ```
 This command will:
