@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-version="4.1.2-0"
+version="4.1.2-2"
 
 # default params
 imgpath='docker://ghcr.io/bepoli/irkernel-hpc:latest'
