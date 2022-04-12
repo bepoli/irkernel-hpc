@@ -1,4 +1,4 @@
-FROM r-base:4.1.2
+FROM r-base:4.1.3
 
 ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
 
