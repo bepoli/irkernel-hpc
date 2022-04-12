@@ -3,6 +3,7 @@ FROM r-base:4.1.2
 ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
 
 RUN apt-get -y update && apt-get -y install \
+        git \
         python3 \
         jupyter \
         libcurl4-openssl-dev \
